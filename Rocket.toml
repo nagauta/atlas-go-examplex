@@ -1,5 +1,5 @@
 [default]
 template_dir = "static"
 
-[default.databases.sqlite_database]
-url = "db/db.sqlite"
+[default.databases.mysql_database]
+url = "mysql://root:password@127.0.0.1/todos"

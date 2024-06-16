@@ -1,7 +1,7 @@
 CREATE TABLE tasks (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    description VARCHAR NOT NULL,
-    completed BOOLEAN NOT NULL DEFAULT 0
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    description VARCHAR(512) NOT NULL,
+    completed TINYINT(1) NOT NULL DEFAULT 0
 );
 
 INSERT INTO tasks (description) VALUES ("demo task");

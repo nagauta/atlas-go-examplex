@@ -18,8 +18,8 @@ use rocket_dyn_templates::Template;
 
 use crate::task::{Task, Todo};
 
-#[database("sqlite_database")]
-pub struct DbConn(diesel::SqliteConnection);
+#[database("mysql_database")]
+pub struct DbConn(diesel::MysqlConnection);
 
 #[derive(Debug, Serialize)]
 #[serde(crate = "rocket::serde")]
