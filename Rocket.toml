@@ -1,5 +1,0 @@
-[default]
-template_dir = "static"
-
-[default.databases.mysql_database]
-url = "mysql://root:password@127.0.0.1/todos"
