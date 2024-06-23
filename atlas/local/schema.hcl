@@ -1,18 +1,3 @@
-table "__diesel_schema_migrations" {
-  schema = schema.todos
-  column "version" {
-    null = false
-    type = varchar(50)
-  }
-  column "run_on" {
-    null    = false
-    type    = timestamp
-    default = sql("CURRENT_TIMESTAMP")
-  }
-  primary_key {
-    columns = [column.version]
-  }
-}
 table "tasks" {
   schema = schema.todos
   column "id" {

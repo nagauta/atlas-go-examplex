@@ -7,7 +7,6 @@ mod tests;
 mod task;
 
 use rocket::{Rocket, Build};
-use rocket::fairing::AdHoc;
 use rocket::request::FlashMessage;
 use rocket::response::{Flash, Redirect};
 use rocket::serde::Serialize;
@@ -91,25 +90,11 @@ async fn index(flash: Option<FlashMessage<'_>>, conn: DbConn) -> Template {
     Template::render("index", Context::raw(&conn, flash).await)
 }
 
-async fn run_migrations(rocket: Rocket<Build>) -> Rocket<Build> {
-    use diesel_migrations::{embed_migrations, EmbeddedMigrations, MigrationHarness};
-
-    const MIGRATIONS: EmbeddedMigrations = embed_migrations!("migrations");
-
-    DbConn::get_one(&rocket).await
-        .expect("database connection")
-        .run(|conn| { conn.run_pending_migrations(MIGRATIONS).expect("diesel migrations"); })
-        .await;
-
-    rocket
-}
-
 #[launch]
 fn rocket() -> _ {
     rocket::build()
         .attach(DbConn::fairing())
         .attach(Template::fairing())
-        .attach(AdHoc::on_ignite("Run Migrations", run_migrations))
         .mount("/", FileServer::from(relative!("static")))
         .mount("/", routes![index])
         .mount("/todo", routes![new, toggle, delete])
